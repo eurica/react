@@ -32,8 +32,11 @@
   <!-- Configure SDK -->
   <script>
     Sentry.init({
-      dsn: 'https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552',
-      release: "%REACT_APP_RELEASE%"
+      dsn: 'https://0a177f8c44e748c99a41a2d73ec1f5f0@sentry.io/1312409',
+      release: "%REACT_APP_RELEASE%",
+      beforeSend: function (data) {
+        Sentry.showReportDialog();
+      }
     });
   </script>
 
@@ -57,3 +60,4 @@
 </body>
 
 </html>
+
