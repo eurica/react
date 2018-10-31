@@ -24,19 +24,27 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>Sentry Demo</title>
+  <title>Sentry Demo: %REACT_APP_RELEASE%</title>
 
   <!-- Import SDK -->
   <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
 
-  <!-- Configure SDK -->
+  <!-- Configure SDK -->  
   <script>
     Sentry.init({
       dsn: 'https://0a177f8c44e748c99a41a2d73ec1f5f0@sentry.io/1312409',
       release: "%REACT_APP_RELEASE%",
-      beforeSend: function (data) {
+      beforeSend(event) {
+      if (event.exception) {
+        console.log(event)
         Sentry.showReportDialog();
       }
+      return event;
+    }
+    });
+
+    Sentry.configureScope((scope) => {
+      scope.setTag("WidgetFeature", "Maximum");
     });
   </script>
 
